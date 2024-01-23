@@ -1,0 +1,70 @@
+import javax.swing.*;
+import java.util.Random;
+
+public class Aufgabe6 {
+    public static void main (String[] args) {
+        String[] eingabeSplit = eingabe().split(" ");
+        char[] a = new char[3];
+
+        for (int i = 0; i < 3; i++) {
+            int zeichen = Integer.parseInt(eingabeSplit[i]);
+            a[i] = (char) zeichen;
+        }
+        System.out.println(zeichen(a));
+
+        //Fehlermeldungen 1
+        boolean ende = false;
+        if (eingabeSplit.length > 3 || eingabeSplit.length < 0) {
+            System.out.println("Weniger oder mehr als 3 Zeichen eingegeben!");
+            ende = true;
+            }
+        if (ende == true)
+            System.exit(0);
+
+        //Fehlermeldung 2
+
+        for (int i = 0; i <3; i++) {
+            if ( a[0] < 33 || a[1] > 126) {
+                ende = true;
+                System.out.println("Nicht im ASCII Bereich!");
+                }
+            }
+            if (ende == true)
+                System.exit(0);
+
+        //Fehlermeldung 3
+        if (a[0] == (a[1]+1) || (a[0]+1) == a[1]) {
+            System.out.println("Leerer Bereich!");
+            ende = true;
+        }
+        if (ende == true)
+            System.exit(0);
+
+        }
+
+    static int zeichen(char a[]) {
+        int min = a[0];
+        int max = a[1];
+        Random random = new Random();
+        int zaehler = 1;
+        int ausgabe = 0;
+
+        while (true) {
+            int zeichen = random.nextInt(max + min);
+            while (zeichen == a[2]) {
+                ausgabe = zaehler;
+                zaehler++;
+            }
+            if (zeichen < min || zeichen > max) {
+                ausgabe = -1;
+                break;
+            }
+        }
+        return ausgabe;
+    }
+
+    static String eingabe() {
+        String eingabe = JOptionPane.showInputDialog("Geben Sie 3 Zahlen zwischen 33 und 126 ein. Trennen Sie die Zahlen mit Leerzeile.");
+        return eingabe;
+    }
+}
